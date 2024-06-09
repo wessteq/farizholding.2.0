@@ -1,7 +1,7 @@
 
 from django.shortcuts import render,redirect
 from django.contrib.auth import authenticate,login,logout
-from .models import FAQ,Course
+from .models import FAQ,Course,Enrollment
 from .forms import UserRegisterForm,UserLoginForm
 def index_view(request):
     faqs = FAQ.objects.all()
@@ -62,4 +62,11 @@ def user_login_view(request):
 def user_logout_view(request):
     logout(request)
     return redirect('index_view')
+
+
+
+def course_detail_view(request,pk):
+    enrollment= Enrollment.objects.get(id=pk)
+    return render(request,'app/detail.html',{'enrollment':enrollment})
+
 
